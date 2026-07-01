@@ -4,7 +4,7 @@ repo_url: https://github.com/compas-dev/compas_plotters
 repo_name: compas-dev/compas_plotters
 edit_uri: blob/main/docs/
 
-copyright: Copyright &copy; 2017-2026, ETH Zurich
+copyright: Copyright &copy; 2026, COMPAS Association
 
 exclude_docs: |
   conftest.py
