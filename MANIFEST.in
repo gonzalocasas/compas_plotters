@@ -1,0 +1,18 @@
+graft src
+
+prune .github
+prune docs
+prune tests
+prune temp
+
+include CHANGELOG.md
+include LICENSE
+include README.md
+include requirements.txt
+
+exclude requirements-dev.txt
+exclude conftest.py
+exclude tasks.py
+exclude mkdocs.yml
+
+global-exclude *.py[cod] __pycache__ .DS_Store

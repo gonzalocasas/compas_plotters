@@ -1,0 +1,25 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+title: "COMPAS Plotters: 2D visualisation for the COMPAS Framework"
+abstract: "2D visualisation of COMPAS geometry and data structures with matplotlib."
+type: software
+authors:
+  - name: "ETH Zurich"
+    affiliation: "ETH Zurich"
+  - family-names: "Van Mele"
+    given-names: "Tom"
+    affiliation: "ETH Zurich"
+  - family-names: "Casas"
+    given-names: "Gonzalo"
+    affiliation: "ETH Zurich"
+url: "https://github.com/compas-dev/compas_plotters"
+repository-code: "https://github.com/compas-dev/compas_plotters"
+license: MIT
+version: "0.1.0"
+date-released: 2026-06-30
+keywords:
+  - COMPAS
+  - visualisation
+  - matplotlib
+  - geometry
+  - architecture

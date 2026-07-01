@@ -1,0 +1,22 @@
+name: verify-pr-checklist
+
+on:
+  pull_request:
+    types: [assigned, opened, synchronize, reopened, labeled, unlabeled]
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Check Actions
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Changelog check
+        if: "!contains(github.event.pull_request.labels.*.name, 'skip-changelog')"
+        uses: Zomzog/changelog-checker@v1.1.0
+        with:
+          fileName: CHANGELOG.md
+          checkNotification: Simple
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
