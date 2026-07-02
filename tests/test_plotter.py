@@ -91,6 +91,48 @@ def test_redraw_clears_and_redraws():
     assert len(obj._mpl_objects) == n_before
 
 
+def test_scene_is_a_compas_scene():
+    from compas.scene import Scene
+
+    from compas_plotters.scene import PlotterScene
+
+    plotter = Plotter()
+    assert isinstance(plotter.scene, PlotterScene)
+    assert isinstance(plotter.scene, Scene)
+    assert plotter.scene.context == "Plotter"
+
+
+def test_scene_hierarchy_and_world_transform():
+    from compas.geometry import Translation
+
+    plotter = Plotter()
+    parent = plotter.add(Point(0, 0, 0))
+    child = plotter.add(Point(1, 0, 0), parent=parent)
+    assert child.parent is parent
+    assert len(plotter.scene.objects) == 2
+
+    parent.transformation = Translation.from_vector([10, 0, 0])
+    assert child.worldtransformation[0, 3] == 10.0
+
+
+def test_scene_remove_clears_and_detaches():
+    plotter = Plotter()
+    obj = plotter.add(Polygon([[0, 0, 0], [1, 0, 0], [1, 1, 0]]))
+    assert len(plotter.sceneobjects) == 1
+    plotter.scene.remove(obj)
+    assert len(plotter.sceneobjects) == 0
+    assert obj._mpl_objects == []
+
+
+def test_scene_draw_returns_artists():
+    plotter = Plotter()
+    plotter.add(Point(0, 0, 0))
+    plotter.add(Line(Point(0, 0, 0), Point(2, 2, 0)), draw_as_segment=True)
+    drawn = plotter.scene.draw()
+    assert isinstance(drawn, list)
+    assert len(drawn) == 2
+
+
 def test_dynamic_on_runs_frames():
     plotter = Plotter()
     point = Point(0, 0, 0)

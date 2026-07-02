@@ -49,7 +49,7 @@ class VectorObject(PlotterSceneObject, GeometryObject):
     def viewdata(self) -> list[list[float]]:
         return [list(self.point[:2]), list((self.point + self.vector)[:2])]
 
-    def draw(self) -> None:
+    def draw(self) -> list:
         color = to_rgb(self.color)
         style = ArrowStyle("Simple, head_length=0.1, head_width=0.1, tail_width=0.02")
         arrow = FancyArrowPatch(
@@ -64,3 +64,4 @@ class VectorObject(PlotterSceneObject, GeometryObject):
         self._mpl_objects = [self.axes.add_patch(arrow)]
         if self.draw_point:
             self._point_object = self.plotter.add(self.point, edgecolor=color)
+        return self._mpl_objects

@@ -61,7 +61,7 @@ class EllipseObject(PlotterSceneObject, GeometryObject):
         b = self.ellipse.minor
         return [[cx - a, cy], [cx + a, cy], [cx, cy - b], [cx, cy + b]]
 
-    def draw(self) -> None:
+    def draw(self) -> list:
         ellipse = EllipsePatch(
             self.ellipse.center[:2],
             width=2 * self.ellipse.major,
@@ -75,3 +75,4 @@ class EllipseObject(PlotterSceneObject, GeometryObject):
             zorder=self.zorder,
         )
         self._mpl_objects = [self.axes.add_artist(ellipse)]
+        return self._mpl_objects

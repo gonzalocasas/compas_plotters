@@ -71,7 +71,7 @@ class LineObject(PlotterSceneObject, GeometryObject):
         box = [[xmin, ymin], [xmax, ymin], [xmax, ymax], [xmin, ymax]]
         return intersection_line_box_xy(self.line, box)
 
-    def draw(self) -> None:
+    def draw(self) -> list:
         color = to_rgb(self.color)
         if self.draw_as_segment:
             x0, y0 = self.line.start[:2]
@@ -79,7 +79,8 @@ class LineObject(PlotterSceneObject, GeometryObject):
         else:
             points = self.clip()
             if not points:
-                return
+                self._mpl_objects = []
+                return self._mpl_objects
             (x0, y0), (x1, y1) = points[0][:2], points[1][:2]
 
         line2d = Line2D(
@@ -96,3 +97,4 @@ class LineObject(PlotterSceneObject, GeometryObject):
                 self.plotter.add(self.line.start, edgecolor=color),
                 self.plotter.add(self.line.end, edgecolor=color),
             ]
+        return self._mpl_objects

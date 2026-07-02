@@ -76,7 +76,7 @@ class MeshObject(PlotterSceneObject, BaseMeshObject):
     def viewdata(self) -> list[list[float]]:
         return [xyz[:2] for xyz in self.vertex_xyz.values()]
 
-    def draw(self) -> None:
+    def draw(self) -> list:
         vertex_xyz = self.vertex_xyz
         if self.show_faces:
             self._draw_faces(vertex_xyz)
@@ -85,6 +85,7 @@ class MeshObject(PlotterSceneObject, BaseMeshObject):
         if self.show_vertices:
             self._draw_vertices(vertex_xyz)
         self._draw_labels(vertex_xyz)
+        return self._mpl_objects
 
     def _draw_faces(self, vertex_xyz: dict) -> None:
         patches = []

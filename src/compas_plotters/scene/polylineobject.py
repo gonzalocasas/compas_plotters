@@ -49,7 +49,7 @@ class PolylineObject(PlotterSceneObject, GeometryObject):
     def viewdata(self) -> list[list[float]]:
         return [list(point[:2]) for point in self.polyline.points]
 
-    def draw(self) -> None:
+    def draw(self) -> list:
         x, y, _ = zip(*self.polyline.points)
         line2d = Line2D(
             x,
@@ -62,3 +62,4 @@ class PolylineObject(PlotterSceneObject, GeometryObject):
         self._mpl_objects = [self.axes.add_line(line2d)]
         if self.draw_points:
             self._point_objects = [self.plotter.add(point) for point in self.polyline.points]
+        return self._mpl_objects

@@ -9,12 +9,13 @@ from typing import Iterable
 import matplotlib.pyplot as plt
 from compas.geometry import allclose
 
+from compas_plotters.scene.plotterobject import PlotterSceneObject
+from compas_plotters.scene.plotterscene import PlotterScene
+
 if TYPE_CHECKING:
     from compas.data import Data
     from matplotlib.axes import Axes
     from matplotlib.figure import Figure
-
-    from compas_plotters.scene.plotterobject import PlotterSceneObject
 
 Viewbox = tuple[tuple[float, float], tuple[float, float]]
 
@@ -70,7 +71,7 @@ class Plotter:
         self._show_axes = show_axes
         self._viewbox: Viewbox | None = None
         self._axes: Axes | None = None
-        self._sceneobjects: list[PlotterSceneObject] = []
+        self.scene = PlotterScene(plotter=self)
         self.viewbox = view
         self.figsize = figsize
         self.dpi = dpi
@@ -125,7 +126,12 @@ class Plotter:
     @property
     def sceneobjects(self) -> list[PlotterSceneObject]:
         """The scene objects currently included in the plot."""
-        return self._sceneobjects
+        return [obj for obj in self.scene.objects if isinstance(obj, PlotterSceneObject)]
+
+    @property
+    def is_live(self) -> bool:
+        """Whether the matplotlib figure has been created yet."""
+        return self._axes is not None
 
     @property
     def title(self) -> str:
@@ -163,7 +169,7 @@ class Plotter:
         fig_aspect = width / height
 
         data: list[list[float]] = []
-        for obj in self._sceneobjects:
+        for obj in self.sceneobjects:
             data += obj.viewdata()
         if not data:
             return
@@ -226,17 +232,7 @@ class Plotter:
         -------
         The scene object created for the item.
         """
-        # Imported lazily to avoid a circular import at module load time.
-        from compas.scene import SceneObject
-
-        if self.zstack == "natural":
-            zorder = 1000 + len(self._sceneobjects) * 100
-            kwargs.setdefault("zorder", zorder)
-
-        sceneobject: PlotterSceneObject = SceneObject(item=item, context="Plotter", plotter=self, **kwargs)  # type: ignore[assignment]
-        sceneobject.draw()
-        self._sceneobjects.append(sceneobject)
-        return sceneobject
+        return self.scene.add(item, **kwargs)  # type: ignore[return-value]
 
     def add_from_list(self, items: Iterable[Data], **kwargs) -> list[PlotterSceneObject]:
         """Add multiple COMPAS objects, all with the same options.
@@ -266,7 +262,7 @@ class Plotter:
         -------
         The matching scene object, or None if the item is not in the plot.
         """
-        for obj in self._sceneobjects:
+        for obj in self.sceneobjects:
             if item is obj.item:
                 return obj
         return None
@@ -302,7 +298,7 @@ class Plotter:
         pause
             If provided, pause for this many seconds after redrawing.
         """
-        for obj in self._sceneobjects:
+        for obj in self.sceneobjects:
             obj.redraw()
         self.figure.canvas.draw()
         self.figure.canvas.flush_events()

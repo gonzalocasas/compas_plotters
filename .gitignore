@@ -50,3 +50,6 @@ ENV/
 # COMPAS / temp
 temp/
 *.gif
+
+# uv
+uv.lock

@@ -54,7 +54,7 @@ class PointObject(PlotterSceneObject, GeometryObject):
     def viewdata(self) -> list[list[float]]:
         return [list(self.point[:2])]
 
-    def draw(self) -> None:
+    def draw(self) -> list:
         circle = CirclePatch(
             (0, 0),
             radius=self.size / self.plotter.dpi,
@@ -64,3 +64,4 @@ class PointObject(PlotterSceneObject, GeometryObject):
             zorder=self.zorder,
         )
         self._mpl_objects = [self.axes.add_artist(circle)]
+        return self._mpl_objects

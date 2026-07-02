@@ -105,6 +105,36 @@ plotter.zoom_extents()
 plotter.show()
 ```
 
+## Scenes and hierarchy
+
+Every `Plotter` owns a [`PlotterScene`][compas_plotters.scene.PlotterScene], a
+subclass of [`compas.scene.Scene`](https://compas.dev/compas/latest/) bound to
+the `"Plotter"` context. `Plotter.add` delegates to it, so you get the full
+COMPAS scene tree: parent/child relationships, composed world transformations,
+and serialization — the same model used by the Rhino, Blender and Viewer
+backends.
+
+```python
+from compas.geometry import Point, Translation
+from compas_plotters import Plotter
+
+plotter = Plotter()
+
+parent = plotter.add(Point(0, 0, 0))
+child = plotter.add(Point(1, 0, 0), parent=parent)
+
+# Transforming the parent moves the child with it.
+parent.transformation = Translation.from_vector([5, 0, 0])
+assert child.worldtransformation[0, 3] == 5.0
+
+plotter.scene  # -> the underlying PlotterScene
+plotter.sceneobjects  # -> the plotter scene objects in the tree
+```
+
+Drawing is managed by the `Plotter` (objects are drawn when added, and
+`Plotter.redraw` refreshes them), so you normally do not call `Scene.draw`
+yourself.
+
 ## Saving
 
 ```python

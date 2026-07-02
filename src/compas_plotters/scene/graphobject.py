@@ -68,13 +68,14 @@ class GraphObject(PlotterSceneObject, BaseGraphObject):
     def viewdata(self) -> list[list[float]]:
         return [xyz[:2] for xyz in self.node_xyz.values()]
 
-    def draw(self) -> None:
+    def draw(self) -> list:
         node_xyz = self.node_xyz
         if self.show_edges:
             self._draw_edges(node_xyz)
         if self.show_nodes:
             self._draw_nodes(node_xyz)
         self._draw_labels(node_xyz)
+        return self._mpl_objects
 
     def _draw_nodes(self, node_xyz: dict) -> None:
         radius = self._node_radius()

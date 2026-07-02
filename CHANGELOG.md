@@ -17,6 +17,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   `Ellipse` and `Frame`.
 * Scene objects for the `Mesh` and `Graph` data structures, with vertex/edge/face
   and node/edge labels.
+* `PlotterScene`, a `compas.scene.Scene` subclass bound to the `"Plotter"`
+  context. Every `Plotter` now owns one, giving a hierarchical scene tree
+  (parent/child transforms), serialization, and API symmetry with the Rhino,
+  Blender and Viewer backends.
+* Guarded registration hook for future 3D shape / `Brep` / surface scene objects.
 
 ### Changed
 

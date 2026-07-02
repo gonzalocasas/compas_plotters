@@ -58,7 +58,7 @@ class FrameObject(PlotterSceneObject, GeometryObject):
             mutation_scale=100,
         )
 
-    def draw(self) -> None:
+    def draw(self) -> list:
         origin = self.frame.point
         ex = origin + self.frame.xaxis.scaled(self.size)
         ey = origin + self.frame.yaxis.scaled(self.size)
@@ -66,3 +66,4 @@ class FrameObject(PlotterSceneObject, GeometryObject):
             self.axes.add_patch(self._arrow(ex, self.xcolor)),
             self.axes.add_patch(self._arrow(ey, self.ycolor)),
         ]
+        return self._mpl_objects

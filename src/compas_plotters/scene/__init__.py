@@ -28,6 +28,7 @@ from .graphobject import GraphObject
 from .lineobject import LineObject
 from .meshobject import MeshObject
 from .plotterobject import PlotterSceneObject
+from .plotterscene import PlotterScene
 from .pointobject import PointObject
 from .polygonobject import PolygonObject
 from .polylineobject import PolylineObject
@@ -48,6 +49,26 @@ def register_scene_objects():
     register(Mesh, MeshObject, context="Plotter")
     register(Graph, GraphObject, context="Plotter")
 
+    # Roadmap: 3D shapes, Breps and surfaces are drawn via XY projection once
+    # their scene objects are implemented. Registration is guarded so the package
+    # keeps working until then, and lights up automatically when the objects (and
+    # any optional dependencies, e.g. compas_occ for Breps) become available.
+    try:
+        from compas.geometry import Box
+        from compas.geometry import Capsule
+        from compas.geometry import Cone
+        from compas.geometry import Cylinder
+        from compas.geometry import Polyhedron
+        from compas.geometry import Sphere
+        from compas.geometry import Torus
+
+        from .shapeobject import ShapeObject
+
+        for shape_cls in (Box, Sphere, Cylinder, Cone, Capsule, Torus, Polyhedron):
+            register(shape_cls, ShapeObject, context="Plotter")
+    except ImportError:
+        pass
+
 
 # Eager registration so that the Plotter works in editable / non-installed setups
 # (where the entry-point-based plugin discovery does not run).
@@ -55,6 +76,7 @@ register_scene_objects()
 
 
 __all__ = [
+    "PlotterScene",
     "PlotterSceneObject",
     "PointObject",
     "VectorObject",

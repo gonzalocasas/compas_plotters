@@ -60,7 +60,7 @@ class CircleObject(PlotterSceneObject, GeometryObject):
         r = self.circle.radius
         return [[cx - r, cy], [cx + r, cy], [cx, cy - r], [cx, cy + r]]
 
-    def draw(self) -> None:
+    def draw(self) -> list:
         circle = CirclePatch(
             self.circle.center[:2],
             radius=self.circle.radius,
@@ -73,3 +73,4 @@ class CircleObject(PlotterSceneObject, GeometryObject):
             zorder=self.zorder,
         )
         self._mpl_objects = [self.axes.add_artist(circle)]
+        return self._mpl_objects

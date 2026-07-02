@@ -55,7 +55,7 @@ class PolygonObject(PlotterSceneObject, GeometryObject):
     def viewdata(self) -> list[list[float]]:
         return [list(point[:2]) for point in self.polygon.points]
 
-    def draw(self) -> None:
+    def draw(self) -> list:
         polygon = PolygonPatch(
             self.viewdata(),
             linewidth=self.linewidth,
@@ -67,3 +67,4 @@ class PolygonObject(PlotterSceneObject, GeometryObject):
             zorder=self.zorder,
         )
         self._mpl_objects = [self.axes.add_patch(polygon)]
+        return self._mpl_objects

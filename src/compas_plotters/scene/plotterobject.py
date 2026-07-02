@@ -109,8 +109,15 @@ class PlotterSceneObject(SceneObject):
                 pass
         self._mpl_objects = []
 
-    def draw(self) -> None:
-        """Draw the object on the plotter canvas. Implemented by subclasses."""
+    def draw(self) -> list:
+        """Draw the object on the plotter canvas. Implemented by subclasses.
+
+        Returns
+        -------
+        The matplotlib artists created for this object (also stored on
+        ``self._mpl_objects``), matching the :class:`compas.scene.SceneObject`
+        contract that ``draw`` returns the created visualisation handles.
+        """
         raise NotImplementedError
 
     def redraw(self) -> None:
