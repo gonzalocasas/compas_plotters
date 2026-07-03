@@ -58,6 +58,67 @@ between `line.start` and `line.end`.
 Points (and mesh vertices and graph nodes) are drawn with a fixed on-screen size
 in points, so they do not grow or shrink when you zoom.
 
+## 3D shapes
+
+3D shapes are drawn as their projection onto the XY plane. A `Box`, for example,
+is projected face by face, so it reads as a solid wireframe regardless of how its
+frame is oriented.
+
+```python
+from math import radians
+from compas.geometry import Box, Frame
+from compas_plotters import Plotter
+
+plotter = Plotter(figsize=(8, 5))
+
+# an axis-aligned box projects to a rectangle
+plotter.add(Box(3, 2, 1))
+
+# a rotated box keeps its 3D silhouette
+frame = Frame([6, 0, 0]).rotated(radians(35), [1, 1, 1], point=[6, 0, 0])
+plotter.add(Box(2, 2, 2, frame=frame), facecolor=(0.9, 0.9, 1.0), alpha=0.3)
+
+plotter.zoom_extents()
+plotter.show()
+```
+
+Pass `fill=False` for a pure wireframe, or tune `alpha` and `facecolor` to shade
+the faces. Because a projection has no depth sorting, faces are not hidden behind
+one another — every edge stays visible.
+
+### Rotating box animation
+
+A good way to confirm the projection is spinning the box and watching the
+silhouette update every frame. Rotate the geometry inside a
+[`Plotter.on`][compas_plotters.Plotter.on] callback (see
+[Dynamic plots and animations](#dynamic-plots-and-animations)) and the plotter
+reprojects and redraws it:
+
+```python
+from math import radians
+from compas.geometry import Box, Frame, Rotation
+from compas_plotters import Plotter
+
+plotter = Plotter(figsize=(6, 6))
+
+box = Box(2, 2, 2, frame=Frame([0, 0, 0]).rotated(radians(35), [1, 1, 1]))
+plotter.add(box, facecolor=(0.9, 0.9, 1.0), alpha=0.3)
+
+# keep the view fixed so the box is seen to rotate, not the camera
+plotter.zoom_extents()
+
+rotation = Rotation.from_axis_and_angle([0, 1, 0], radians(6), point=[0, 0, 0])
+
+@plotter.on(interval=0.05, frames=60, record=True, recording="box.gif")
+def spin(frame):
+    box.transform(rotation)
+
+plotter.show()
+```
+
+Each frame applies a small rotation about the Z axis; the six faces are
+re-projected onto the XY plane, so the wireframe appears to turn in 3D.
+
 ## Meshes
 
 Meshes reuse the data layer of the COMPAS scene system, so the `show_vertices`,

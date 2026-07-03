@@ -10,6 +10,7 @@ from __future__ import annotations
 
 from compas.datastructures import Graph
 from compas.datastructures import Mesh
+from compas.geometry import Box
 from compas.geometry import Circle
 from compas.geometry import Ellipse
 from compas.geometry import Frame
@@ -21,6 +22,7 @@ from compas.geometry import Vector
 from compas.plugins import plugin
 from compas.scene import register
 
+from .boxobject import BoxObject
 from .circleobject import CircleObject
 from .ellipseobject import EllipseObject
 from .frameobject import FrameObject
@@ -46,6 +48,7 @@ def register_scene_objects():
     register(Circle, CircleObject, context="Plotter")
     register(Ellipse, EllipseObject, context="Plotter")
     register(Frame, FrameObject, context="Plotter")
+    register(Box, BoxObject, context="Plotter")
     register(Mesh, MeshObject, context="Plotter")
     register(Graph, GraphObject, context="Plotter")
 
@@ -54,7 +57,6 @@ def register_scene_objects():
     # keeps working until then, and lights up automatically when the objects (and
     # any optional dependencies, e.g. compas_occ for Breps) become available.
     try:
-        from compas.geometry import Box
         from compas.geometry import Capsule
         from compas.geometry import Cone
         from compas.geometry import Cylinder
@@ -64,7 +66,7 @@ def register_scene_objects():
 
         from .shapeobject import ShapeObject
 
-        for shape_cls in (Box, Sphere, Cylinder, Cone, Capsule, Torus, Polyhedron):
+        for shape_cls in (Sphere, Cylinder, Cone, Capsule, Torus, Polyhedron):
             register(shape_cls, ShapeObject, context="Plotter")
     except ImportError:
         pass
@@ -86,6 +88,7 @@ __all__ = [
     "CircleObject",
     "EllipseObject",
     "FrameObject",
+    "BoxObject",
     "MeshObject",
     "GraphObject",
 ]
