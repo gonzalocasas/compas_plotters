@@ -4,16 +4,24 @@ matplotlib.use("Agg")
 
 from compas.datastructures import Graph
 from compas.datastructures import Mesh
+from compas.geometry import Box
+from compas.geometry import Capsule
 from compas.geometry import Circle
+from compas.geometry import Cone
+from compas.geometry import Cylinder
 from compas.geometry import Ellipse
 from compas.geometry import Frame
 from compas.geometry import Line
 from compas.geometry import Point
 from compas.geometry import Polygon
+from compas.geometry import Polyhedron
 from compas.geometry import Polyline
+from compas.geometry import Sphere
+from compas.geometry import Torus
 from compas.geometry import Vector
 
 from compas_plotters import Plotter
+from compas_plotters.scene import BoxObject
 from compas_plotters.scene import CircleObject
 from compas_plotters.scene import EllipseObject
 from compas_plotters.scene import FrameObject
@@ -23,6 +31,7 @@ from compas_plotters.scene import MeshObject
 from compas_plotters.scene import PointObject
 from compas_plotters.scene import PolygonObject
 from compas_plotters.scene import PolylineObject
+from compas_plotters.scene import ShapeObject
 from compas_plotters.scene import VectorObject
 
 
@@ -48,6 +57,33 @@ def test_add_all_geometry_types():
         obj = plotter.add(item)
         assert isinstance(obj, expected)
     assert len(plotter.sceneobjects) >= len(pairs)
+
+
+def test_add_box_returns_boxobject():
+    plotter = Plotter()
+    obj = plotter.add(Box(1, 2, 3))
+    assert isinstance(obj, BoxObject)
+    # one patch per face
+    assert len(obj._mpl_objects) == 6
+    assert len(obj.viewdata()) == 8
+
+
+def test_add_all_shape_types():
+    plotter = Plotter()
+    shapes = [
+        Sphere(1.0),
+        Cylinder(0.5, 2.0),
+        Cone(0.5, 2.0),
+        Capsule(0.3, 1.5),
+        Torus(1.0, 0.3),
+        Polyhedron.from_platonicsolid(12),
+    ]
+    for shape in shapes:
+        obj = plotter.add(shape)
+        assert isinstance(obj, ShapeObject)
+        # every tessellated face is drawn
+        _, faces = obj._vertices_and_faces()
+        assert len(obj._mpl_objects) == len(faces) > 0
 
 
 def test_add_mesh_and_graph():

@@ -21,7 +21,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
   context. Every `Plotter` now owns one, giving a hierarchical scene tree
   (parent/child transforms), serialization, and API symmetry with the Rhino,
   Blender and Viewer backends.
-* Guarded registration hook for future 3D shape / `Brep` / surface scene objects.
+* Scene object for `Box`, drawn as the exact XY projection of its six faces.
+* Shared `ShapeObject` drawing `Sphere`, `Cylinder`, `Cone`, `Capsule`, `Torus`
+  and `Polyhedron` as tessellated XY projections, with `u`/`v` resolution control.
 
 ### Changed
 

@@ -11,13 +11,19 @@ from __future__ import annotations
 from compas.datastructures import Graph
 from compas.datastructures import Mesh
 from compas.geometry import Box
+from compas.geometry import Capsule
 from compas.geometry import Circle
+from compas.geometry import Cone
+from compas.geometry import Cylinder
 from compas.geometry import Ellipse
 from compas.geometry import Frame
 from compas.geometry import Line
 from compas.geometry import Point
 from compas.geometry import Polygon
+from compas.geometry import Polyhedron
 from compas.geometry import Polyline
+from compas.geometry import Sphere
+from compas.geometry import Torus
 from compas.geometry import Vector
 from compas.plugins import plugin
 from compas.scene import register
@@ -34,6 +40,7 @@ from .plotterscene import PlotterScene
 from .pointobject import PointObject
 from .polygonobject import PolygonObject
 from .polylineobject import PolylineObject
+from .shapeobject import ShapeObject
 from .vectorobject import VectorObject
 
 
@@ -52,24 +59,13 @@ def register_scene_objects():
     register(Mesh, MeshObject, context="Plotter")
     register(Graph, GraphObject, context="Plotter")
 
-    # Roadmap: 3D shapes, Breps and surfaces are drawn via XY projection once
-    # their scene objects are implemented. Registration is guarded so the package
-    # keeps working until then, and lights up automatically when the objects (and
-    # any optional dependencies, e.g. compas_occ for Breps) become available.
-    try:
-        from compas.geometry import Capsule
-        from compas.geometry import Cone
-        from compas.geometry import Cylinder
-        from compas.geometry import Polyhedron
-        from compas.geometry import Sphere
-        from compas.geometry import Torus
+    # 3D shapes are drawn as their projection onto the XY plane, tessellated by
+    # a shared ShapeObject. Box keeps its own object (exact 6-face projection).
+    for shape_cls in (Sphere, Cylinder, Cone, Capsule, Torus, Polyhedron):
+        register(shape_cls, ShapeObject, context="Plotter")
 
-        from .shapeobject import ShapeObject
-
-        for shape_cls in (Sphere, Cylinder, Cone, Capsule, Torus, Polyhedron):
-            register(shape_cls, ShapeObject, context="Plotter")
-    except ImportError:
-        pass
+    # Roadmap: Breps and surfaces are drawn via XY projection once their scene
+    # objects are implemented (Breps additionally need e.g. compas_occ).
 
 
 # Eager registration so that the Plotter works in editable / non-installed setups
@@ -89,6 +85,7 @@ __all__ = [
     "EllipseObject",
     "FrameObject",
     "BoxObject",
+    "ShapeObject",
     "MeshObject",
     "GraphObject",
 ]

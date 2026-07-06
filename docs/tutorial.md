@@ -62,7 +62,29 @@ in points, so they do not grow or shrink when you zoom.
 
 3D shapes are drawn as their projection onto the XY plane. A `Box`, for example,
 is projected face by face, so it reads as a solid wireframe regardless of how its
-frame is oriented.
+frame is oriented. The same works for `Sphere`, `Cylinder`, `Cone`, `Capsule`,
+`Torus` and `Polyhedron`: they are tessellated into a mesh and that mesh is
+projected. Curved shapes take `u`/`v` keyword arguments to control the
+tessellation resolution.
+
+```python
+from compas.geometry import Sphere, Cylinder, Cone, Torus, Polyhedron
+from compas.geometry import Translation
+from compas_plotters import Plotter
+
+plotter = Plotter(figsize=(10, 3))
+
+plotter.add(Sphere(1.0))
+plotter.add(Cylinder(0.6, 2.0).transformed(Translation.from_vector([3, 0, 0])))
+plotter.add(Cone(0.8, 2.0).transformed(Translation.from_vector([6, 0, 0])), u=12)
+plotter.add(Torus(1.0, 0.3).transformed(Translation.from_vector([9, 0, 0])))
+plotter.add(Polyhedron.from_platonicsolid(12).transformed(Translation.from_vector([12, 0, 0])))
+
+plotter.zoom_extents()
+plotter.show()
+```
+
+The `Box` below is projected the same way.
 
 ```python
 from math import radians
@@ -116,8 +138,9 @@ def spin(frame):
 plotter.show()
 ```
 
-Each frame applies a small rotation about the Z axis; the six faces are
-re-projected onto the XY plane, so the wireframe appears to turn in 3D.
+Each frame applies a small rotation; the six faces are re-projected onto the XY
+plane, so the wireframe appears to turn in 3D. Any of the shapes above can be
+animated the same way.
 
 ## Meshes
 
