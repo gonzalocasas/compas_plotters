@@ -43,10 +43,21 @@ plotter.show()
 | Category | Objects |
 |---|---|
 | Geometry | `Point`, `Vector`, `Line`, `Polyline`, `Polygon`, `Circle`, `Ellipse`, `Frame` |
+| Shapes (drawn as XY projections) | `Box`, `Sphere`, `Cylinder`, `Cone`, `Capsule`, `Torus`, `Polyhedron` |
 | Data structures | `Mesh`, `Graph` |
 
-3D shapes (`Box`, `Sphere`, …), `Brep`, `Surface` and `VolMesh` are not yet
-supported — see the [roadmap](https://compas.dev/compas_plotters).
+`Brep`, `Surface`, `NurbsCurve`, `VolMesh` and `Plane` are not yet supported —
+see the [roadmap](#roadmap).
+
+## Roadmap
+
+Planned additions, most likely drawn as XY projections following the existing
+`ShapeObject`:
+
+- `Brep` and `Surface` (tessellate to a mesh, then project; `Brep` needs an
+  optional backend such as `compas_occ`)
+- `NurbsCurve` (sampled to a polyline)
+- `VolMesh` and `Plane`
 
 ## Documentation
 

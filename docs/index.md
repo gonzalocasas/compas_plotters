@@ -42,10 +42,18 @@ plotter.show()
 | Category | Objects |
 |---|---|
 | Geometry | `Point`, `Vector`, `Line`, `Polyline`, `Polygon`, `Circle`, `Ellipse`, `Frame` |
+| Shapes (drawn as XY projections) | `Box`, `Sphere`, `Cylinder`, `Cone`, `Capsule`, `Torus`, `Polyhedron` |
 | Data structures | `Mesh`, `Graph` |
 
-3D shapes (`Box`, `Sphere`, …), `Brep`, `Surface` and `VolMesh` are not yet
-supported. They are on the roadmap and may be added as XY projections.
+## Roadmap
+
+The following are not yet supported. They are likely to be added as XY
+projections, following the existing `ShapeObject`:
+
+- `Brep` and `Surface` — tessellate to a mesh, then project (`Brep` needs an
+  optional backend such as `compas_occ`)
+- `NurbsCurve` — sampled to a polyline
+- `VolMesh` and `Plane`
 
 ## Next steps
 
