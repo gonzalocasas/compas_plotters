@@ -61,17 +61,24 @@ class MeshObject(PlotterSceneObject, BaseMeshObject):
             vertexcolor=vertexcolor,
             **kwargs,
         )
+        self._vertex_xyz = None
         self.vertextext = vertextext or {}
         self.edgetext = edgetext or {}
         self.facetext = facetext or {}
 
     @property
     def vertex_xyz(self) -> dict:
-        """Mapping of vertices to their world coordinates."""
+        """Mapping of vertices to their view coordinates."""
+        if self._vertex_xyz is not None:
+            return self._vertex_xyz
         vertices = list(self.mesh.vertices())
         points = [self.mesh.vertex_coordinates(vertex) for vertex in vertices]
         points = transform_points(points, self.worldtransformation)
         return dict(zip(vertices, points))
+
+    @vertex_xyz.setter
+    def vertex_xyz(self, vertex_xyz: dict | None) -> None:
+        self._vertex_xyz = vertex_xyz
 
     def viewdata(self) -> list[list[float]]:
         return [xyz[:2] for xyz in self.vertex_xyz.values()]

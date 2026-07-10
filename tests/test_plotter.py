@@ -181,3 +181,39 @@ def test_dynamic_on_runs_frames():
         point.x = f
 
     assert seen == [0, 1, 2]
+
+
+def test_dynamic_on_updates_graph_node_xyz():
+    plotter = Plotter()
+    graph = Graph()
+    a = graph.add_node(x=0, y=0, z=0)
+    b = graph.add_node(x=1, y=0, z=0)
+    graph.add_edge(a, b)
+    obj = plotter.add(graph)
+
+    @plotter.on(interval=0, frames=3)
+    def frame(f):
+        x = graph.node_attribute(b, "x")
+        graph.node_attribute(b, "x", x + f)
+
+    assert obj.node_xyz[b][0] == 4.0
+
+
+def test_mesh_vertex_xyz_is_fresh_and_assignable():
+    plotter = Plotter()
+    mesh = Mesh.from_vertices_and_faces(
+        {0: [0.0, 0.0, 0.0], 1: [1.0, 0.0, 0.0], 2: [1.0, 1.0, 0.0], 3: [0.0, 1.0, 0.0]},
+        [[0, 1, 2, 3]],
+    )
+    obj = plotter.add(mesh)
+
+    @plotter.on(interval=0, frames=3)
+    def frame(f):
+        y = mesh.vertex_attribute(1, "y")
+        mesh.vertex_attribute(1, "y", y + f)
+
+        z = mesh.vertex_attribute(3, "z")
+        mesh.vertex_attribute(3, "z", z + f)
+
+    assert obj.vertex_xyz[1][1] == 3.0
+    assert obj.vertex_xyz[3][2] == 3.0

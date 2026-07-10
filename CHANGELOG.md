@@ -27,4 +27,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+* `GraphObject.node_xyz` and `MeshObject.vertex_xyz` return fresh view
+  coordinates on every access instead of a mapping cached at first access, so
+  a redraw in a `Plotter.on` animation loop picks up
+  changes to the coordinates of the underlying datastructure.
+
 ### Removed
