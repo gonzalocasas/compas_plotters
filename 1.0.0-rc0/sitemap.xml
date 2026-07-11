@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+         <loc>https://compas.dev/compas_plotter/1.0.0-rc0/</loc>
+         <lastmod>2026-07-11</lastmod>
+    </url>
+    <url>
+         <loc>https://compas.dev/compas_plotter/1.0.0-rc0/changelog/</loc>
+         <lastmod>2026-07-11</lastmod>
+    </url>
+    <url>
+         <loc>https://compas.dev/compas_plotter/1.0.0-rc0/installation/</loc>
+         <lastmod>2026-07-11</lastmod>
+    </url>
+    <url>
+         <loc>https://compas.dev/compas_plotter/1.0.0-rc0/license/</loc>
+         <lastmod>2026-07-11</lastmod>
+    </url>
+    <url>
+         <loc>https://compas.dev/compas_plotter/1.0.0-rc0/tutorial/</loc>
+         <lastmod>2026-07-11</lastmod>
+    </url>
+    <url>
+         <loc>https://compas.dev/compas_plotter/1.0.0-rc0/api/</loc>
+         <lastmod>2026-07-11</lastmod>
+    </url>
+    <url>
+         <loc>https://compas.dev/compas_plotter/1.0.0-rc0/api/compas_plotter/</loc>
+         <lastmod>2026-07-11</lastmod>
+    </url>
+    <url>
+         <loc>https://compas.dev/compas_plotter/1.0.0-rc0/api/compas_plotter.scene/</loc>
+         <lastmod>2026-07-11</lastmod>
+    </url>
+</urlset>
