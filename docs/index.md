@@ -1,4 +1,4 @@
-# COMPAS Plotters
+# COMPAS Plotter
 
 **2D visualisation of COMPAS geometry and data structures, powered by matplotlib.**
 

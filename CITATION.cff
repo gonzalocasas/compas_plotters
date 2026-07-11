@@ -1,6 +1,6 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
-title: "COMPAS Plotters: 2D visualisation for the COMPAS Framework"
+title: "COMPAS Plotter: 2D visualisation for the COMPAS Framework"
 abstract: "2D visualisation of COMPAS geometry and data structures with matplotlib."
 type: software
 authors:
