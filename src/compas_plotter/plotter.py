@@ -9,8 +9,8 @@ from typing import Iterable
 import matplotlib.pyplot as plt
 from compas.geometry import allclose
 
-from compas_plotters.scene.plotterobject import PlotterSceneObject
-from compas_plotters.scene.plotterscene import PlotterScene
+from compas_plotter.scene.plotterobject import PlotterSceneObject
+from compas_plotter.scene.plotterscene import PlotterScene
 
 if TYPE_CHECKING:
     from compas.data import Data
@@ -51,7 +51,7 @@ class Plotter:
     Examples
     --------
     >>> from compas.geometry import Point
-    >>> from compas_plotters import Plotter
+    >>> from compas_plotter import Plotter
     >>> plotter = Plotter()
     >>> obj = plotter.add(Point(0, 0, 0))
     >>> plotter.zoom_extents()

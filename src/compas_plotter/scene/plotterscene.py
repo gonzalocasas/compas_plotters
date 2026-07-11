@@ -10,13 +10,13 @@ from .plotterobject import PlotterSceneObject
 if TYPE_CHECKING:
     from compas.data import Data
 
-    from compas_plotters.plotter import Plotter
+    from compas_plotter.plotter import Plotter
 
 
 class PlotterScene(Scene):
     """A :class:`compas.scene.Scene` bound to the ``"Plotter"`` visualisation context.
 
-    This is the container behind a :class:`compas_plotters.Plotter`, mirroring the
+    This is the container behind a :class:`compas_plotter.Plotter`, mirroring the
     way ``compas_viewer`` wraps :class:`compas.scene.Scene` in a ``ViewerScene``.
     It stores a back-reference to the owning plotter and injects it into every
     scene object it creates, so the objects can draw onto the plotter axes.

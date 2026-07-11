@@ -1,12 +1,12 @@
 # COMPAS Plotters
 
-![build](https://github.com/compas-dev/compas_plotters/workflows/build/badge.svg)
-[![License](https://img.shields.io/github/license/compas-dev/compas_plotters.svg)](https://github.com/compas-dev/compas_plotters/blob/main/LICENSE)
-[![PyPI](https://img.shields.io/pypi/v/compas_plotters.svg)](https://pypi.org/project/compas_plotters/)
+![build](https://github.com/compas-dev/compas_plotter/workflows/build/badge.svg)
+[![License](https://img.shields.io/github/license/compas-dev/compas_plotter.svg)](https://github.com/compas-dev/compas_plotter/blob/main/LICENSE)
+[![PyPI](https://img.shields.io/pypi/v/compas_plotter.svg)](https://pypi.org/project/compas_plotter/)
 
 **2D visualisation of COMPAS geometry and data structures, powered by matplotlib.**
 
-`compas_plotters` provides a lightweight, dependency-free (other than matplotlib)
+`compas_plotter` provides a lightweight, dependency-free (other than matplotlib)
 way to draw COMPAS objects in 2D. It is the COMPAS 2.x successor of the
 `compas_plotters` package that shipped inside COMPAS up to version 1.17, rebuilt
 on top of the modern [`compas.scene`](https://compas.dev/compas/latest/) system.
@@ -16,7 +16,7 @@ registered plotter scene object can be drawn with a single `plotter.add(...)`.
 ## Installation
 
 ```bash
-pip install compas_plotters
+pip install compas_plotter
 ```
 
 ## Quick start
@@ -24,7 +24,7 @@ pip install compas_plotters
 ```python
 from compas.geometry import Point, Line, Polygon
 from compas.datastructures import Mesh
-from compas_plotters import Plotter
+from compas_plotter import Plotter
 
 plotter = Plotter(figsize=(8, 5))
 
@@ -62,8 +62,8 @@ Planned additions, most likely drawn as XY projections following the existing
 ## Documentation
 
 Full documentation is available at
-[compas.dev/compas_plotters](https://compas.dev/compas_plotters).
+[compas.dev/compas_plotter](https://compas.dev/compas_plotter).
 
 ## License
 
-`compas_plotters` is released under the [MIT License](LICENSE).
+`compas_plotter` is released under the [MIT License](LICENSE).

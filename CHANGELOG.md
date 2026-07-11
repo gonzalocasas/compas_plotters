@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-* Initial COMPAS 2.x port of `compas_plotters`.
+* Initial COMPAS 2.x port of `compas_plotters` (the package that shipped inside COMPAS up to 1.17).
 * `Plotter` class for 2D matplotlib visualisation, including dynamic plotting
   (`Plotter.on`) with optional GIF recording.
 * `"Plotter"` visualisation context built on `compas.scene`.

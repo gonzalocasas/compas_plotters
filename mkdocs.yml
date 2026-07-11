@@ -1,7 +1,7 @@
 site_name: COMPAS Plotters
-site_url: https://compas.dev/compas_plotters
-repo_url: https://github.com/compas-dev/compas_plotters
-repo_name: compas-dev/compas_plotters
+site_url: https://compas.dev/compas_plotter
+repo_url: https://github.com/compas-dev/compas_plotter
+repo_name: compas-dev/compas_plotter
 edit_uri: blob/main/docs/
 
 copyright: Copyright &copy; 2026, COMPAS Association
@@ -12,7 +12,7 @@ exclude_docs: |
   **/*.pyc
 
 extra:
-  homepage: https://compas.dev/compas_plotters
+  homepage: https://compas.dev/compas_plotter
   version:
     provider: mike
 
@@ -121,7 +121,7 @@ nav:
   - Tutorial: tutorial.md
   - API Reference:
       - api/index.md
-      - compas_plotters: api/compas_plotters.md
-      - compas_plotters.scene: api/compas_plotters.scene.md
+      - compas_plotter: api/compas_plotter.md
+      - compas_plotter.scene: api/compas_plotter.scene.md
   - Changelog: changelog.md
   - License: license.md
