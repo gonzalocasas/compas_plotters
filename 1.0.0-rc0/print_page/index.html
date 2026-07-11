@@ -699,7 +699,7 @@ up to version 1.17, rebuilt on top of the modern
 <p><img alt="A gallery of objects drawn with compas_plotter" src="../examples/gallery.png" /></p>
 <h2 id="index-highlights">Highlights<a class="headerlink" href="#index-highlights" title="Permanent link">¤</a></h2>
 <ul>
-<li>One entry point — <a class="autorefs autorefs-internal" title="            add" href="#api-compas_plotter-compas_plotter.Plotter.add"><code>Plotter.add</code></a> — dispatches any
+<li>One entry point — <a class="autorefs autorefs-internal" title="            add" href="#api-compas_plotter-compas_plotter.Plotter.add_from_list"><code>Plotter.add</code></a> — dispatches any
   supported COMPAS object to its matplotlib drawing.</li>
 <li>Built on <code>compas.scene</code>: registers a <code>"Plotter"</code> visualisation context, exactly
   like the Rhino, Blender and Grasshopper backends.</li>
@@ -788,8 +788,8 @@ dependencies:</p>
 </span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#installation-__codelineno-4-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">compas_plotter</span><span class="o">.</span><span class="n">__version__</span><span class="p">)</span>
 </span></code></pre></div></section><section class="print-page" id="tutorial" heading-number="3"><h1 id="tutorial-tutorial">Tutorial<a class="headerlink" href="#tutorial-tutorial" title="Permanent link">¤</a></h1>
 <p><code>compas_plotter</code> draws COMPAS objects onto a matplotlib canvas. The main entry
-point is the <a class="autorefs autorefs-internal" title="            compas_plotter.Plotter" href="#api-compas_plotter-compas_plotter.Plotter.redraw"><code>Plotter</code></a> class. You add objects to it
-with <a class="autorefs autorefs-internal" title="            add" href="#api-compas_plotter-compas_plotter.Plotter.add"><code>Plotter.add</code></a>, and each object is dispatched
+point is the <a class="autorefs autorefs-internal" title="            compas_plotter.Plotter" href="#api-compas_plotter-compas_plotter.Plotter.pause"><code>Plotter</code></a> class. You add objects to it
+with <a class="autorefs autorefs-internal" title="            add" href="#api-compas_plotter-compas_plotter.Plotter.add_from_list"><code>Plotter.add</code></a>, and each object is dispatched
 through the <a href="https://compas.dev/compas/latest/"><code>compas.scene</code></a> system to a
 matplotlib-based scene object.</p>
 <h2 id="tutorial-a-first-plot">A first plot<a class="headerlink" href="#tutorial-a-first-plot" title="Permanent link">¤</a></h2>
@@ -941,7 +941,7 @@ animated the same way.</p>
 </span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#tutorial-__codelineno-7-14"></a><span class="n">plotter</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </span></code></pre></div>
 <h2 id="tutorial-scenes-and-hierarchy">Scenes and hierarchy<a class="headerlink" href="#tutorial-scenes-and-hierarchy" title="Permanent link">¤</a></h2>
-<p>Every <code>Plotter</code> owns a <a class="autorefs autorefs-internal" title="            PlotterScene" href="#api-compas_plotter.scene-compas_plotter.scene.PlotterScene"><code>PlotterScene</code></a>, a
+<p>Every <code>Plotter</code> owns a <a class="autorefs autorefs-internal" title="            PlotterScene" href="#api-compas_plotter.scene-compas_plotter.scene.PlotterSceneObject.viewdata"><code>PlotterScene</code></a>, a
 subclass of <a href="https://compas.dev/compas/latest/"><code>compas.scene.Scene</code></a> bound to
 the <code>"Plotter"</code> context. <code>Plotter.add</code> delegates to it, so you get the full
 COMPAS scene tree: parent/child relationships, composed world transformations,
@@ -992,7 +992,7 @@ the plotter redraws it. Set <code>record</code> and <code>recording</code> to al
                     <section class="print-page" id="api" heading-number="4.1"><h1 id="api-api-reference">API Reference<a class="headerlink" href="#api-api-reference" title="Permanent link">¤</a></h1>
 <p>The public API of <code>compas_plotter</code> is small:</p>
 <ul>
-<li><strong><a href="#api-compas_plotter">compas_plotter</a></strong> — the <a class="autorefs autorefs-internal" title="            compas_plotter.Plotter" href="#api-compas_plotter-compas_plotter.Plotter.redraw"><code>Plotter</code></a>
+<li><strong><a href="#api-compas_plotter">compas_plotter</a></strong> — the <a class="autorefs autorefs-internal" title="            compas_plotter.Plotter" href="#api-compas_plotter-compas_plotter.Plotter.pause"><code>Plotter</code></a>
   class, the main entry point for building 2D plots.</li>
 <li><strong><a href="#api-compas_plotter.scene">compas_plotter.scene</a></strong> — the <code>"Plotter"</code>
   visualisation-context scene objects, one per supported COMPAS type. You rarely
@@ -1096,7 +1096,7 @@ If <code>"zorder"</code>, objects are stacked by their <code>zorder</code>.</p>
     <ul>
         <li class="doc-section-item field-body">
           <b><code><a class="autorefs autorefs-internal" title="compas_plotter.Plotter.fontsize" href="#compas_plotter.Plotter.fontsize">fontsize</a></code></b>
-              (<code><a class="autorefs autorefs-internal" href="#print-page-toc">int</a></code>)
+              (<code><a class="autorefs autorefs-internal" href="#tutorial-points-keep-a-constant-size">int</a></code>)
           –
           <div class="doc-md-description">
             <p>Default font size used for labels.</p>
@@ -1216,7 +1216,7 @@ If <code>"zorder"</code>, objects are stacked by their <code>zorder</code>.</p>
   </span>
 
 <a href="#api-compas_plotter-compas_plotter.Plotter.sceneobjects" class="headerlink" title="Permanent link">¤</a></h2>
-<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#api-compas_plotter-__codelineno-0-1"></a><span class="n">sceneobjects</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" href="#api-compas_plotter-compas_plotter.Plotter.add_from_list">list</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="            PlotterSceneObject (compas_plotter.scene.plotterobject.PlotterSceneObject)" href="#api-compas_plotter.scene-compas_plotter.scene.PlotterSceneObject.axes">PlotterSceneObject</a></span><span class="p">]</span>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#api-compas_plotter-__codelineno-0-1"></a><span class="n">sceneobjects</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" href="#api-compas_plotter-compas_plotter.Plotter.add_from_list">list</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="            PlotterSceneObject (compas_plotter.scene.plotterobject.PlotterSceneObject)" href="#api-compas_plotter.scene-compas_plotter.scene.PlotterSceneObject.viewdata">PlotterSceneObject</a></span><span class="p">]</span>
 </span></code></pre></div>
 
     <div class="doc doc-contents ">
@@ -1238,7 +1238,7 @@ If <code>"zorder"</code>, objects are stacked by their <code>zorder</code>.</p>
 
 
 <a href="#api-compas_plotter-compas_plotter.Plotter.add" class="headerlink" title="Permanent link">¤</a></h2>
-<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#api-compas_plotter-__codelineno-0-1"></a><span class="nf">add</span><span class="p">(</span><span class="n">item</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="compas.data.Data" href="#compas.data.Data">Data</a></span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-internal" title="            PlotterSceneObject (compas_plotter.scene.plotterobject.PlotterSceneObject)" href="#api-compas_plotter.scene-compas_plotter.scene.PlotterSceneObject.axes">PlotterSceneObject</a></span>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#api-compas_plotter-__codelineno-0-1"></a><span class="nf">add</span><span class="p">(</span><span class="n">item</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="compas.data.Data" href="#compas.data.Data">Data</a></span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-internal" title="            PlotterSceneObject (compas_plotter.scene.plotterobject.PlotterSceneObject)" href="#api-compas_plotter.scene-compas_plotter.scene.PlotterSceneObject.viewdata">PlotterSceneObject</a></span>
 </span></code></pre></div>
 
     <div class="doc doc-contents ">
@@ -1290,7 +1290,7 @@ If <code>"zorder"</code>, objects are stacked by their <code>zorder</code>.</p>
 
 
 <a href="#api-compas_plotter-compas_plotter.Plotter.add_from_list" class="headerlink" title="Permanent link">¤</a></h2>
-<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#api-compas_plotter-__codelineno-0-1"></a><span class="nf">add_from_list</span><span class="p">(</span><span class="n">items</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="typing.Iterable" href="#typing.Iterable">Iterable</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="compas.data.Data" href="#compas.data.Data">Data</a></span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-internal" href="#api-compas_plotter-compas_plotter.Plotter.add_from_list">list</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="            PlotterSceneObject (compas_plotter.scene.plotterobject.PlotterSceneObject)" href="#api-compas_plotter.scene-compas_plotter.scene.PlotterSceneObject.axes">PlotterSceneObject</a></span><span class="p">]</span>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#api-compas_plotter-__codelineno-0-1"></a><span class="nf">add_from_list</span><span class="p">(</span><span class="n">items</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="typing.Iterable" href="#typing.Iterable">Iterable</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="compas.data.Data" href="#compas.data.Data">Data</a></span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-internal" href="#api-compas_plotter-compas_plotter.Plotter.add_from_list">list</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" title="            PlotterSceneObject (compas_plotter.scene.plotterobject.PlotterSceneObject)" href="#api-compas_plotter.scene-compas_plotter.scene.PlotterSceneObject.viewdata">PlotterSceneObject</a></span><span class="p">]</span>
 </span></code></pre></div>
 
     <div class="doc doc-contents ">
@@ -1377,7 +1377,7 @@ If <code>"zorder"</code>, objects are stacked by their <code>zorder</code>.</p>
 
 
 <a href="#api-compas_plotter-compas_plotter.Plotter.find" class="headerlink" title="Permanent link">¤</a></h2>
-<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#api-compas_plotter-__codelineno-0-1"></a><span class="nf">find</span><span class="p">(</span><span class="n">item</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="compas.data.Data" href="#compas.data.Data">Data</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-internal" title="            PlotterSceneObject (compas_plotter.scene.plotterobject.PlotterSceneObject)" href="#api-compas_plotter.scene-compas_plotter.scene.PlotterSceneObject.axes">PlotterSceneObject</a></span> <span class="o">|</span> <span class="kc">None</span>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#api-compas_plotter-__codelineno-0-1"></a><span class="nf">find</span><span class="p">(</span><span class="n">item</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="compas.data.Data" href="#compas.data.Data">Data</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-internal" title="            PlotterSceneObject (compas_plotter.scene.plotterobject.PlotterSceneObject)" href="#api-compas_plotter.scene-compas_plotter.scene.PlotterSceneObject.viewdata">PlotterSceneObject</a></span> <span class="o">|</span> <span class="kc">None</span>
 </span></code></pre></div>
 
     <div class="doc doc-contents ">
@@ -1424,10 +1424,10 @@ If <code>"zorder"</code>, objects are stacked by their <code>zorder</code>.</p>
 <a href="#api-compas_plotter-compas_plotter.Plotter.on" class="headerlink" title="Permanent link">¤</a></h2>
 <div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#api-compas_plotter-__codelineno-0-1"></a><span class="nf">on</span><span class="p">(</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#api-compas_plotter-__codelineno-0-2"></a>    <span class="n">interval</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" href="#float">float</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#api-compas_plotter-__codelineno-0-3"></a>    <span class="n">frames</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" href="#print-page-toc">int</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#api-compas_plotter-__codelineno-0-3"></a>    <span class="n">frames</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" href="#tutorial-points-keep-a-constant-size">int</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#api-compas_plotter-__codelineno-0-4"></a>    <span class="n">record</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" href="#bool">bool</a></span> <span class="o">=</span> <span class="kc">False</span><span class="p">,</span>
 </span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#api-compas_plotter-__codelineno-0-5"></a>    <span class="n">recording</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" href="#str">str</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#api-compas_plotter-__codelineno-0-6"></a>    <span class="n">dpi</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" href="#print-page-toc">int</a></span> <span class="o">=</span> <span class="mi">150</span><span class="p">,</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#api-compas_plotter-__codelineno-0-6"></a>    <span class="n">dpi</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" href="#tutorial-points-keep-a-constant-size">int</a></span> <span class="o">=</span> <span class="mi">150</span><span class="p">,</span>
 </span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#api-compas_plotter-__codelineno-0-7"></a><span class="p">)</span> <span class="o">-&gt;</span> <span class="n"><a class="autorefs autorefs-internal" title="typing.Callable" href="#typing.Callable">Callable</a></span>
 </span></code></pre></div>
 
@@ -1452,7 +1452,7 @@ its only argument, and the canvas is redrawn after each call.</p>
         </li>
         <li class="doc-section-item field-body">
             <b><code>frames</code></b>
-              (<code><a class="autorefs autorefs-internal" href="#print-page-toc">int</a> | None</code>, default:
+              (<code><a class="autorefs autorefs-internal" href="#tutorial-points-keep-a-constant-size">int</a> | None</code>, default:
                   <code>None</code>
 )
           –
@@ -1482,7 +1482,7 @@ its only argument, and the canvas is redrawn after each call.</p>
         </li>
         <li class="doc-section-item field-body">
             <b><code>dpi</code></b>
-              (<code><a class="autorefs autorefs-internal" href="#print-page-toc">int</a></code>, default:
+              (<code><a class="autorefs autorefs-internal" href="#tutorial-points-keep-a-constant-size">int</a></code>, default:
                   <code>150</code>
 )
           –
@@ -3160,7 +3160,7 @@ draws again. Subclasses may override this to update artists in place.</p>
 
 <a href="#api-compas_plotter.scene-compas_plotter.scene.PlotterScene" class="headerlink" title="Permanent link">¤</a></h2>
 <div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#api-compas_plotter.scene-__codelineno-0-1"></a><span class="nf">PlotterScene</span><span class="p">(</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#api-compas_plotter.scene-__codelineno-0-2"></a>    <span class="n">plotter</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="            compas_plotter.Plotter (compas_plotter.plotter.Plotter)" href="#api-compas_plotter-compas_plotter.Plotter.redraw">Plotter</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" href="#str">str</a></span> <span class="o">=</span> <span class="s2">&quot;PlotterScene&quot;</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" href="#str">str</a></span> <span class="o">=</span> <span class="s2">&quot;Plotter&quot;</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#api-compas_plotter.scene-__codelineno-0-2"></a>    <span class="n">plotter</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="            compas_plotter.Plotter (compas_plotter.plotter.Plotter)" href="#api-compas_plotter-compas_plotter.Plotter.pause">Plotter</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">name</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" href="#str">str</a></span> <span class="o">=</span> <span class="s2">&quot;PlotterScene&quot;</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" href="#str">str</a></span> <span class="o">=</span> <span class="s2">&quot;Plotter&quot;</span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#api-compas_plotter.scene-__codelineno-0-3"></a><span class="p">)</span>
 </span></code></pre></div>
 
@@ -3179,7 +3179,7 @@ scene object it creates, so the objects can draw onto the plotter axes.</p>
     <ul>
         <li class="doc-section-item field-body">
             <b><code>plotter</code></b>
-              (<code><a class="autorefs autorefs-internal" title="            compas_plotter.Plotter (compas_plotter.plotter.Plotter)" href="#api-compas_plotter-compas_plotter.Plotter.redraw">Plotter</a> | None</code>, default:
+              (<code><a class="autorefs autorefs-internal" title="            compas_plotter.Plotter (compas_plotter.plotter.Plotter)" href="#api-compas_plotter-compas_plotter.Plotter.pause">Plotter</a> | None</code>, default:
                   <code>None</code>
 )
           –
@@ -3343,7 +3343,7 @@ an object to a live plot shows it right away.</p>
 
 
 <a href="#api-compas_plotter.scene-compas_plotter.scene.PlotterSceneObject" class="headerlink" title="Permanent link">¤</a></h2>
-<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#api-compas_plotter.scene-__codelineno-0-1"></a><span class="nf">PlotterSceneObject</span><span class="p">(</span><span class="n">plotter</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="            compas_plotter.Plotter (compas_plotter.plotter.Plotter)" href="#api-compas_plotter-compas_plotter.Plotter.redraw">Plotter</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">zorder</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" href="#print-page-toc">int</a></span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#api-compas_plotter.scene-__codelineno-0-1"></a><span class="nf">PlotterSceneObject</span><span class="p">(</span><span class="n">plotter</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="            compas_plotter.Plotter (compas_plotter.plotter.Plotter)" href="#api-compas_plotter-compas_plotter.Plotter.pause">Plotter</a></span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span> <span class="n">zorder</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" href="#tutorial-points-keep-a-constant-size">int</a></span> <span class="o">=</span> <span class="mi">1000</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </span></code></pre></div>
 
     <div class="doc doc-contents ">
@@ -3361,7 +3361,7 @@ created during drawing.</p>
     <ul>
         <li class="doc-section-item field-body">
             <b><code>plotter</code></b>
-              (<code><a class="autorefs autorefs-internal" title="            compas_plotter.Plotter (compas_plotter.plotter.Plotter)" href="#api-compas_plotter-compas_plotter.Plotter.redraw">Plotter</a> | None</code>, default:
+              (<code><a class="autorefs autorefs-internal" title="            compas_plotter.Plotter (compas_plotter.plotter.Plotter)" href="#api-compas_plotter-compas_plotter.Plotter.pause">Plotter</a> | None</code>, default:
                   <code>None</code>
 )
           –
@@ -3371,7 +3371,7 @@ created during drawing.</p>
         </li>
         <li class="doc-section-item field-body">
             <b><code>zorder</code></b>
-              (<code><a class="autorefs autorefs-internal" href="#print-page-toc">int</a></code>, default:
+              (<code><a class="autorefs autorefs-internal" href="#tutorial-points-keep-a-constant-size">int</a></code>, default:
                   <code>1000</code>
 )
           –
@@ -4069,8 +4069,8 @@ draws again. Subclasses may override this to update artists in place.</p>
 
 <a href="#api-compas_plotter.scene-compas_plotter.scene.ShapeObject" class="headerlink" title="Permanent link">¤</a></h2>
 <div class="language-python doc-signature highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#api-compas_plotter.scene-__codelineno-0-1"></a><span class="nf">ShapeObject</span><span class="p">(</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#api-compas_plotter.scene-__codelineno-0-2"></a>    <span class="n">u</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" href="#print-page-toc">int</a></span> <span class="o">=</span> <span class="mi">16</span><span class="p">,</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#api-compas_plotter.scene-__codelineno-0-3"></a>    <span class="n">v</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" href="#print-page-toc">int</a></span> <span class="o">=</span> <span class="mi">16</span><span class="p">,</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#api-compas_plotter.scene-__codelineno-0-2"></a>    <span class="n">u</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" href="#tutorial-points-keep-a-constant-size">int</a></span> <span class="o">=</span> <span class="mi">16</span><span class="p">,</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#api-compas_plotter.scene-__codelineno-0-3"></a>    <span class="n">v</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" href="#tutorial-points-keep-a-constant-size">int</a></span> <span class="o">=</span> <span class="mi">16</span><span class="p">,</span>
 </span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#api-compas_plotter.scene-__codelineno-0-4"></a>    <span class="n">linewidth</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" href="#float">float</a></span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span>
 </span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#api-compas_plotter.scene-__codelineno-0-5"></a>    <span class="n">linestyle</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" href="#str">str</a></span> <span class="o">=</span> <span class="s2">&quot;solid&quot;</span><span class="p">,</span>
 </span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#api-compas_plotter.scene-__codelineno-0-6"></a>    <span class="n">facecolor</span><span class="p">:</span> <span class="n"><a class="autorefs autorefs-internal" title="compas.colors.Color" href="#compas.colors.Color">Color</a></span> <span class="o">|</span> <span class="n"><a class="autorefs autorefs-internal" title="typing.Sequence" href="#typing.Sequence">Sequence</a></span><span class="p">[</span><span class="n"><a class="autorefs autorefs-internal" href="#float">float</a></span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mf">0.9</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
@@ -4098,7 +4098,7 @@ wireframe regardless of its orientation.</p>
     <ul>
         <li class="doc-section-item field-body">
             <b><code>u</code></b>
-              (<code><a class="autorefs autorefs-internal" href="#print-page-toc">int</a></code>, default:
+              (<code><a class="autorefs autorefs-internal" href="#tutorial-points-keep-a-constant-size">int</a></code>, default:
                   <code>16</code>
 )
           –
@@ -4109,7 +4109,7 @@ without a resolution, such as :class:<code>compas.geometry.Polyhedron</code>.</p
         </li>
         <li class="doc-section-item field-body">
             <b><code>v</code></b>
-              (<code><a class="autorefs autorefs-internal" href="#print-page-toc">int</a></code>, default:
+              (<code><a class="autorefs autorefs-internal" href="#tutorial-points-keep-a-constant-size">int</a></code>, default:
                   <code>16</code>
 )
           –
