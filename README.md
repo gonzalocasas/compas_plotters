@@ -1,5 +1,6 @@
 # COMPAS Plotter
 
+[![Made with COMPAS](https://compas.dev/badge.svg)](https://compas.dev)
 ![build](https://github.com/compas-dev/compas_plotter/workflows/build/badge.svg)
 [![License](https://img.shields.io/github/license/compas-dev/compas_plotter.svg)](https://github.com/compas-dev/compas_plotter/blob/main/LICENSE)
 [![PyPI](https://img.shields.io/pypi/v/compas_plotter.svg)](https://pypi.org/project/compas_plotter/)
