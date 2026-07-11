@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from compas.colors import Color
+from compas.geometry import transform_points
 from compas.scene import GraphObject as BaseGraphObject
 from matplotlib.collections import LineCollection
 from matplotlib.collections import PatchCollection
@@ -60,6 +61,20 @@ class GraphObject(PlotterSceneObject, BaseGraphObject):
         self.sizepolicy = sizepolicy
         self.nodetext = nodetext or {}
         self.edgetext = edgetext or {}
+
+    @property
+    def node_xyz(self) -> dict:
+        """Mapping of nodes to their view coordinates."""
+        if self._node_xyz is not None:
+            return self._node_xyz
+        nodes = list(self.graph.nodes())
+        points = self.graph.nodes_attributes("xyz", keys=nodes)
+        points = transform_points(points, self.worldtransformation)
+        return dict(zip(nodes, points))
+
+    @node_xyz.setter
+    def node_xyz(self, node_xyz: dict | None) -> None:
+        self._node_xyz = node_xyz
 
     def _node_radius(self) -> float:
         factor = self.plotter.dpi if self.sizepolicy == "absolute" else max(self.graph.number_of_nodes(), 1)
