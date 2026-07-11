@@ -1,10 +1,10 @@
 """2D visualisation of COMPAS geometry and data structures with matplotlib.
 
-This is the COMPAS 2.x successor of the ``compas_plotters`` package that shipped
+This is the COMPAS 2.x successor of the ``compas_plotter`` package that shipped
 inside COMPAS up to version 1.17. It registers a ``"Plotter"`` visualisation
 context built on top of the modern :mod:`compas.scene` system, so any COMPAS
 object with a registered plotter scene object can be drawn with
-:meth:`compas_plotters.Plotter.add`.
+:meth:`compas_plotter.Plotter.add`.
 """
 
 from .__version__ import __version__

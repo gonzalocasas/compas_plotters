@@ -2,28 +2,28 @@
 
 **2D visualisation of COMPAS geometry and data structures, powered by matplotlib.**
 
-`compas_plotters` is a lightweight way to draw COMPAS objects in 2D. It is the
+`compas_plotter` is a lightweight way to draw COMPAS objects in 2D. It is the
 COMPAS 2.x successor of the `compas_plotters` package that shipped inside COMPAS
 up to version 1.17, rebuilt on top of the modern
 [`compas.scene`](https://compas.dev/compas/latest/) system.
 
-![A gallery of objects drawn with compas_plotters](examples/gallery.png)
+![A gallery of objects drawn with compas_plotter](examples/gallery.png)
 
 ## Highlights
 
-- One entry point — [`Plotter.add`][compas_plotters.Plotter.add] — dispatches any
+- One entry point — [`Plotter.add`][compas_plotter.Plotter.add] — dispatches any
   supported COMPAS object to its matplotlib drawing.
 - Built on `compas.scene`: registers a `"Plotter"` visualisation context, exactly
   like the Rhino, Blender and Grasshopper backends.
 - Dynamic plotting and GIF recording via
-  [`Plotter.on`][compas_plotters.Plotter.on].
+  [`Plotter.on`][compas_plotter.Plotter.on].
 
 ## Quick start
 
 ```python
 from compas.geometry import Point, Line, Polygon
 from compas.datastructures import Mesh
-from compas_plotters import Plotter
+from compas_plotter import Plotter
 
 plotter = Plotter(figsize=(8, 5))
 

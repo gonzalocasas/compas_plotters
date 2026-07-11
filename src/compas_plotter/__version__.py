@@ -1,6 +1,6 @@
-__title__ = "compas_plotters"
+__title__ = "compas_plotter"
 __description__ = "2D visualisation of COMPAS geometry and data structures with matplotlib."
-__url__ = "https://github.com/compas-dev/compas_plotters"
+__url__ = "https://github.com/compas-dev/compas_plotter"
 __version__ = "0.1.0"
 __author__ = "tom van mele"
 __author_email__ = "tom.v.mele@gmail.com"

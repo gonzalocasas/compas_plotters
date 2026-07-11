@@ -1,8 +1,8 @@
 # Tutorial
 
-`compas_plotters` draws COMPAS objects onto a matplotlib canvas. The main entry
-point is the [`Plotter`][compas_plotters.Plotter] class. You add objects to it
-with [`Plotter.add`][compas_plotters.Plotter.add], and each object is dispatched
+`compas_plotter` draws COMPAS objects onto a matplotlib canvas. The main entry
+point is the [`Plotter`][compas_plotter.Plotter] class. You add objects to it
+with [`Plotter.add`][compas_plotter.Plotter.add], and each object is dispatched
 through the [`compas.scene`](https://compas.dev/compas/latest/) system to a
 matplotlib-based scene object.
 
@@ -10,7 +10,7 @@ matplotlib-based scene object.
 
 ```python
 from compas.geometry import Point
-from compas_plotters import Plotter
+from compas_plotter import Plotter
 
 plotter = Plotter()
 plotter.add(Point(0, 0, 0))
@@ -30,7 +30,7 @@ forwarded to the corresponding scene object to control its appearance.
 
 ```python
 from compas.geometry import Point, Vector, Line, Polyline, Polygon, Circle, Ellipse, Frame
-from compas_plotters import Plotter
+from compas_plotter import Plotter
 
 plotter = Plotter(figsize=(8, 5))
 
@@ -70,7 +70,7 @@ tessellation resolution.
 ```python
 from compas.geometry import Sphere, Cylinder, Cone, Torus, Polyhedron
 from compas.geometry import Translation
-from compas_plotters import Plotter
+from compas_plotter import Plotter
 
 plotter = Plotter(figsize=(10, 3))
 
@@ -89,7 +89,7 @@ The `Box` below is projected the same way.
 ```python
 from math import radians
 from compas.geometry import Box, Frame
-from compas_plotters import Plotter
+from compas_plotter import Plotter
 
 plotter = Plotter(figsize=(8, 5))
 
@@ -112,14 +112,14 @@ one another — every edge stays visible.
 
 A good way to confirm the projection is spinning the box and watching the
 silhouette update every frame. Rotate the geometry inside a
-[`Plotter.on`][compas_plotters.Plotter.on] callback (see
+[`Plotter.on`][compas_plotter.Plotter.on] callback (see
 [Dynamic plots and animations](#dynamic-plots-and-animations)) and the plotter
 reprojects and redraws it:
 
 ```python
 from math import radians
 from compas.geometry import Box, Frame, Rotation
-from compas_plotters import Plotter
+from compas_plotter import Plotter
 
 plotter = Plotter(figsize=(6, 6))
 
@@ -149,7 +149,7 @@ Meshes reuse the data layer of the COMPAS scene system, so the `show_vertices`,
 
 ```python
 from compas.datastructures import Mesh
-from compas_plotters import Plotter
+from compas_plotter import Plotter
 
 mesh = Mesh.from_meshgrid(dx=10, nx=10)
 
@@ -174,7 +174,7 @@ plotter.add(mesh, facetext={face: str(face) for face in mesh.faces()})
 
 ```python
 from compas.datastructures import Graph
-from compas_plotters import Plotter
+from compas_plotter import Plotter
 
 graph = Graph()
 a = graph.add_node(x=0, y=0, z=0)
@@ -191,7 +191,7 @@ plotter.show()
 
 ## Scenes and hierarchy
 
-Every `Plotter` owns a [`PlotterScene`][compas_plotters.scene.PlotterScene], a
+Every `Plotter` owns a [`PlotterScene`][compas_plotter.scene.PlotterScene], a
 subclass of [`compas.scene.Scene`](https://compas.dev/compas/latest/) bound to
 the `"Plotter"` context. `Plotter.add` delegates to it, so you get the full
 COMPAS scene tree: parent/child relationships, composed world transformations,
@@ -200,7 +200,7 @@ backends.
 
 ```python
 from compas.geometry import Point, Translation
-from compas_plotters import Plotter
+from compas_plotter import Plotter
 
 plotter = Plotter()
 
@@ -227,13 +227,13 @@ plotter.save("figure.png", dpi=300)
 
 ## Dynamic plots and animations
 
-[`Plotter.on`][compas_plotters.Plotter.on] turns a plotter into an animation
+[`Plotter.on`][compas_plotter.Plotter.on] turns a plotter into an animation
 loop. The decorated function is called once per frame; mutate your geometry and
 the plotter redraws it. Set `record` and `recording` to also export a GIF.
 
 ```python
 from compas.geometry import Point
-from compas_plotters import Plotter
+from compas_plotter import Plotter
 
 plotter = Plotter()
 point = Point(0, 0, 0)

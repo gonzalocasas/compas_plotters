@@ -9,7 +9,7 @@ from compas.scene import SceneObject
 if TYPE_CHECKING:
     from matplotlib.axes import Axes
 
-    from compas_plotters.plotter import Plotter
+    from compas_plotter.plotter import Plotter
 
 RGBColor = tuple[float, float, float]
 
@@ -57,7 +57,7 @@ def to_color(color: Color | Sequence[float] | None) -> Color | None:
 
 
 class PlotterSceneObject(SceneObject):
-    """Base class for all scene objects drawn by a :class:`compas_plotters.Plotter`.
+    """Base class for all scene objects drawn by a :class:`compas_plotter.Plotter`.
 
     This is the COMPAS 2.x replacement for the 1.x ``PlotterArtist``. It stores a
     back-reference to the owning plotter so concrete objects can draw onto its

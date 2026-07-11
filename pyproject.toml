@@ -7,7 +7,7 @@ build-backend = "setuptools.build_meta"
 # ============================================================================
 
 [project]
-name = "compas_plotters"
+name = "compas_plotter"
 description = "2D visualisation of COMPAS geometry and data structures with matplotlib."
 keywords = ["architecture", "engineering", "geometry", "visualisation", "matplotlib", "plotting"]
 authors = [{ name = "tom van mele", email = "tom.v.mele@gmail.com" }]
@@ -35,20 +35,20 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://compas.dev/compas_plotters"
-Documentation = "https://compas.dev/compas_plotters"
-Repository = "https://github.com/compas-dev/compas_plotters"
-Changelog = "https://github.com/compas-dev/compas_plotters/blob/main/CHANGELOG.md"
-Issues = "https://github.com/compas-dev/compas_plotters/issues"
+Homepage = "https://compas.dev/compas_plotter"
+Documentation = "https://compas.dev/compas_plotter"
+Repository = "https://github.com/compas-dev/compas_plotter"
+Changelog = "https://github.com/compas-dev/compas_plotter/blob/main/CHANGELOG.md"
+Issues = "https://github.com/compas-dev/compas_plotter/issues"
 Forum = "https://forum.compas-framework.org/"
 
 # COMPAS discovers @plugin-decorated factories in installed packages. This entry
 # point makes the "Plotter" scene-object registration discoverable.
 [project.entry-points."compas.plugins"]
-compas_plotters = "compas_plotters.scene"
+compas_plotter = "compas_plotter.scene"
 
 [tool.setuptools.dynamic]
-version = { attr = "compas_plotters.__version__.__version__" }
+version = { attr = "compas_plotter.__version__.__version__" }
 dependencies = { file = "requirements.txt" }
 optional-dependencies = { dev = { file = "requirements-dev.txt" } }
 
@@ -61,7 +61,7 @@ where = ["src"]
 
 [tool.pytest.ini_options]
 minversion = "6.0"
-testpaths = ["tests", "src/compas_plotters"]
+testpaths = ["tests", "src/compas_plotter"]
 python_files = ["test_*.py", "tests.py"]
 addopts = "-ra --strict-markers --tb=short --import-mode=importlib"
 doctest_optionflags = "NORMALIZE_WHITESPACE IGNORE_EXCEPTION_DETAIL ALLOW_UNICODE ALLOW_BYTES NUMBER"
@@ -86,7 +86,7 @@ select = ["E", "F", "I"]
 
 [tool.ruff.lint.isort]
 force-single-line = true
-known-first-party = ["compas_plotters"]
+known-first-party = ["compas_plotter"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "numpy"
@@ -127,7 +127,7 @@ values = ["rc", "final"]
 optional_value = "final"
 
 [[tool.bumpversion.files]]
-filename = "src/compas_plotters/__version__.py"
+filename = "src/compas_plotter/__version__.py"
 search = "{current_version}"
 replace = "{new_version}"
 

@@ -20,19 +20,19 @@ from compas.geometry import Sphere
 from compas.geometry import Torus
 from compas.geometry import Vector
 
-from compas_plotters import Plotter
-from compas_plotters.scene import BoxObject
-from compas_plotters.scene import CircleObject
-from compas_plotters.scene import EllipseObject
-from compas_plotters.scene import FrameObject
-from compas_plotters.scene import GraphObject
-from compas_plotters.scene import LineObject
-from compas_plotters.scene import MeshObject
-from compas_plotters.scene import PointObject
-from compas_plotters.scene import PolygonObject
-from compas_plotters.scene import PolylineObject
-from compas_plotters.scene import ShapeObject
-from compas_plotters.scene import VectorObject
+from compas_plotter import Plotter
+from compas_plotter.scene import BoxObject
+from compas_plotter.scene import CircleObject
+from compas_plotter.scene import EllipseObject
+from compas_plotter.scene import FrameObject
+from compas_plotter.scene import GraphObject
+from compas_plotter.scene import LineObject
+from compas_plotter.scene import MeshObject
+from compas_plotter.scene import PointObject
+from compas_plotter.scene import PolygonObject
+from compas_plotter.scene import PolylineObject
+from compas_plotter.scene import ShapeObject
+from compas_plotter.scene import VectorObject
 
 
 def test_add_point_returns_pointobject():
@@ -130,7 +130,7 @@ def test_redraw_clears_and_redraws():
 def test_scene_is_a_compas_scene():
     from compas.scene import Scene
 
-    from compas_plotters.scene import PlotterScene
+    from compas_plotter.scene import PlotterScene
 
     plotter = Plotter()
     assert isinstance(plotter.scene, PlotterScene)
