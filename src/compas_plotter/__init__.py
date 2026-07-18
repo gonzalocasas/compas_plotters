@@ -10,10 +10,8 @@ object with a registered plotter scene object can be drawn with
 from .__version__ import __version__
 from .plotter import Plotter
 
-# Importing the scene subpackage triggers registration of the Plotter scene
-# objects. When this package is pip-installed, COMPAS would also discover the
-# @plugin-decorated factory through the entry point; importing here guarantees
-# registration works in editable / non-installed setups as well.
-from . import scene  # noqa: E402,F401
+# COMPAS plugin discovery imports the modules listed here to find the
+# ``@plugin``-decorated ``register_scene_objects`` factory.
+__all_plugins__ = ["compas_plotter.scene"]
 
 __all__ = ["Plotter", "__version__"]

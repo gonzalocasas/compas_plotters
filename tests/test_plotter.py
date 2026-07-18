@@ -1,3 +1,7 @@
+import subprocess
+import sys
+import textwrap
+
 import matplotlib
 
 matplotlib.use("Agg")
@@ -19,6 +23,8 @@ from compas.geometry import Polyline
 from compas.geometry import Sphere
 from compas.geometry import Torus
 from compas.geometry import Vector
+from compas.geometry import Translation
+from compas.scene import Scene
 
 from compas_plotter import Plotter
 from compas_plotter.scene import BoxObject
@@ -33,6 +39,7 @@ from compas_plotter.scene import PolygonObject
 from compas_plotter.scene import PolylineObject
 from compas_plotter.scene import ShapeObject
 from compas_plotter.scene import VectorObject
+from compas_plotter.scene import PlotterScene
 
 
 def test_add_point_returns_pointobject():
@@ -128,9 +135,6 @@ def test_redraw_clears_and_redraws():
 
 
 def test_scene_is_a_compas_scene():
-    from compas.scene import Scene
-
-    from compas_plotter.scene import PlotterScene
 
     plotter = Plotter()
     assert isinstance(plotter.scene, PlotterScene)
@@ -139,7 +143,6 @@ def test_scene_is_a_compas_scene():
 
 
 def test_scene_hierarchy_and_world_transform():
-    from compas.geometry import Translation
 
     plotter = Plotter()
     parent = plotter.add(Point(0, 0, 0))
@@ -217,3 +220,26 @@ def test_mesh_vertex_xyz_is_fresh_and_assignable():
 
     assert obj.vertex_xyz[1][1] == 3.0
     assert obj.vertex_xyz[3][2] == 3.0
+
+
+def test_import_does_not_populate_registry_eagerly():
+    script = textwrap.dedent(
+        """
+        import compas.scene.context as ctx
+        import compas_plotter  # must not register anything on its own
+        assert not ctx.ITEM_SCENEOBJECT, ctx.ITEM_SCENEOBJECT
+
+        # Discovery through the plugin path still finds the Plotter backend and,
+        # critically, the base COMPAS context too.
+        from compas.scene.context import register_scene_objects
+        register_scene_objects()
+        from compas.datastructures import Mesh
+        assert "Plotter" in ctx.ITEM_SCENEOBJECT
+        assert Mesh in ctx.ITEM_SCENEOBJECT["Plotter"]
+        assert Mesh in ctx.ITEM_SCENEOBJECT[None]
+        print("OK")
+        """
+    )
+    result = subprocess.run([sys.executable, "-c", script], capture_output=True, text=True)
+    assert result.returncode == 0, result.stderr
+    assert "OK" in result.stdout

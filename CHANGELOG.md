@@ -9,9 +9,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+* Created `compas_plotter.__all_plugins__`, so COMPAS's plugin manager discovers the
+  `register_scene_objects` factory through the standard `collect_all` path (the
+  same mechanism `compas_viewer` uses).
+
 ### Changed
 
 ### Removed
+
+* Removed Eager, import-time `register_scene_objects()` call in
+  `compas_plotter.scene`, and the `from . import scene` side-effect import in
+  `compas_plotter/__init__.py`. These populated COMPAS's global
+  `ITEM_SCENEOBJECT` at import time, which suppressed the lazy
+  `if not ITEM_SCENEOBJECT` discovery trigger in `compas.scene.context` and left
+  every other backend unregistered.
 
 ## [1.0.0] 2026-07-11
 
