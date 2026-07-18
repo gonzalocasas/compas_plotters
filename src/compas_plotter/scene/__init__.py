@@ -68,11 +68,6 @@ def register_scene_objects():
     # objects are implemented (Breps additionally need e.g. compas_occ).
 
 
-# Eager registration so that the Plotter works in editable / non-installed setups
-# (where the entry-point-based plugin discovery does not run).
-register_scene_objects()
-
-
 __all__ = [
     "PlotterScene",
     "PlotterSceneObject",
